@@ -10,7 +10,7 @@ import Vapor
 import Fluent
 
 
-final class  Movie: Model {
+final class  Movie: Model, Content {
     
 static let schema: String = "movies"
     
