@@ -3,6 +3,9 @@ import Vapor
 
 func routes(_ app: Application) throws {
     
+    /*
+     
+    
     app.middleware.use(LogMiddleware())
     
     // /members
@@ -14,7 +17,7 @@ func routes(_ app: Application) throws {
             return "Members hello"
         }
     }
-    
+     */
     // /
     app.get { req async in
     "It works"
