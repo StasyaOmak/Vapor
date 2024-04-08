@@ -3,11 +3,31 @@ import Vapor
 
 func routes(_ app: Application) throws {
     
+    app.middleware.use(LogMiddleware())
+    
+    // /members
+    app.grouped(AuthenticationMiddleware()).group("members") { route  in
+        route.get { req async -> String in
+          return "Members Index"
+        }
+        route.get("hello") { req async -> String in
+            return "Members hello"
+        }
+    }
+    
+    // /
+    app.get { req async in
+    "It works"
+    }
+    // /hello
+    app.get("hello") { req async -> String in
+    "Hello, world!"
+    }
+    
+    /*
     // способ настройки контроллера
     try app.register(collection: MoviesController())
     
-    
-    /*
     // /movies
     // /movies/12
     
