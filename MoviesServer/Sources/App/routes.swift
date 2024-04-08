@@ -3,6 +3,36 @@ import Vapor
 
 func routes(_ app: Application) throws {
     
+    
+    // /movies
+    // /movies/12
+    
+    // /users
+    // /users/premium
+    
+    let movies = app.grouped("movies")
+    
+    // /movies
+    movies.get { req async -> String in
+    return "Movies"
+    }
+    
+    // /movies/34
+    movies.get(":movieId") { req async throws -> String in
+        guard let movieId = req.parameters.get("movieId") else {
+            throw Abort(.badRequest)
+        }
+        return "MovieId = \(movieId)"
+    }
+    
+    let users = app.grouped("users")
+    
+    // /user/premium
+    users.get("premium") { req async throws -> String in
+        return "Premium"
+        }
+
+    
     // http://127.0.0.1:8080
     app.get { req async throws in
         try await req.view.render("index", ["title": "Hello Vapor!"])
@@ -12,6 +42,16 @@ func routes(_ app: Application) throws {
         "Hello, world!"
     }
 
+    // /hotels?sort=desc&search=houston
+    app.get("hotels") { req async throws in
+        let hotelQuery = try req.query.decode(HotelQuery.self)
+        print(hotelQuery)
+        return hotelQuery
+    }
+    
+    
+    
+    /*
     //создаём post запрос
     app.post("movies") { req async throws in
         let movie = try req.content.decode(Movie.self)
@@ -57,4 +97,5 @@ func routes(_ app: Application) throws {
         return "All movies of genre: \(genre) for year \(year)"
     }
     try app.register(collection: TodoController())
+     */
 }
