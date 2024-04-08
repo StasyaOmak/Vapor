@@ -12,11 +12,22 @@ func routes(_ app: Application) throws {
         "Hello, world!"
     }
 
+    //создаём post запрос
+    app.post("movies") { req async throws in
+        let movie = try req.content.decode(Movie.self)
+        return movie
+    }
     app.get("customers", ":customerId") { req async throws -> String in
         guard let customerId = req.parameters.get("customerId", as: Int.self) else {
             throw Abort(.badRequest)
         }
         return "\(customerId)"
+    }
+    
+// /movies
+    app.get("movies") { red async in
+        [Movie(title: "Batman", year: 2023), Movie(title: "Superman", year: 2022), Movie(title: "Spiderman", year: 1999)]
+        
     }
     // /movies/action
     // /movies/horror
