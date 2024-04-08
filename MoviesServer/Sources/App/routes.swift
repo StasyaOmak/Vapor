@@ -3,7 +3,11 @@ import Vapor
 
 func routes(_ app: Application) throws {
     
+    // способ настройки контроллера
+    try app.register(collection: MoviesController())
     
+    
+    /*
     // /movies
     // /movies/12
     
@@ -97,5 +101,6 @@ func routes(_ app: Application) throws {
         return "All movies of genre: \(genre) for year \(year)"
     }
     try app.register(collection: TodoController())
+     */
      */
 }
